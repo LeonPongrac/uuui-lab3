@@ -8,8 +8,9 @@ import java.util.Scanner;
 public class Table {
 	private ArrayList<ArrayList<String>> baza;
 	
-	Table(String filename) throws FileNotFoundException{
+	Table(String filename) throws FileNotFoundException {
 		File file = new File(filename);
+		ArrayList<ArrayList<String>> baza = new ArrayList<>();
 		Scanner sc = new Scanner(file);
 		while(sc.hasNext()) {
 			String line = sc.nextLine();
@@ -20,6 +21,13 @@ public class Table {
 			}
 			baza.add(red);
 		}
+		sc.close();
+		this.baza = baza;
+	}
+	
+	Table(ArrayList<ArrayList<String>> baza){
+		super();
+		this.baza = baza;
 	}
 	
 	void print() {
@@ -33,6 +41,38 @@ public class Table {
 			}
 			System.out.println();
 		}
+	}
+	
+	public ArrayList<String> getCategorys(){
+		return baza.get(0);
+	}
+	
+	public ArrayList<String> getOptions(String category){
+		ArrayList<String> categorys = this.getCategorys();
+		int y = categorys.indexOf(category);
+		ArrayList<String> options = new ArrayList<>();
+		for (int i = 1; i < baza.size(); i++) {
+			String option = baza.get(i).get(y);
+			if(!options.contains(option)) {
+				options.add(option);
+			}
+		}		
+		return options;
+	}
+	
+	public Table subTable(String category, String option) {
+		ArrayList<ArrayList<String>> novaBaza = new ArrayList<>();
+		ArrayList<String> red = this.getCategorys();
+		int y = red.indexOf(category);
+		novaBaza.add(red);
+		for (int i = 1; i < baza.size(); i++) {
+			String opt = baza.get(i).get(y);
+			if(opt.contains(option)) {
+				red = baza.get(i);
+				novaBaza.add(red);
+			}
+		}
+		return new Table(novaBaza);
 	}
 	
 }
