@@ -3,6 +3,7 @@ package ui;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Table {
@@ -73,6 +74,39 @@ public class Table {
 			}
 		}
 		return new Table(novaBaza);
+	}
+	
+	public static double log2(double N)
+    {
+        double result = (Math.log(N) / Math.log(2));
+        return result;
+    }
+	
+	public double finalEntropy() {
+		ArrayList<String> categorys = this.getCategorys();
+		ArrayList<String> options = this.getOptions(categorys.get(categorys.size()-1));
+		HashMap<String, Integer> kazo = new HashMap<>();
+		for (String string : options) {
+			kazo.put(string, 0);
+		}
+		for (int i = 1; i < baza.size(); i++) {
+			String opt = baza.get(i).get(categorys.size()-1);
+			kazo.replace(opt, kazo.get(opt)+1);
+		}
+		int n = baza.size()-1;
+		double entropija = 0;
+		for (String string : options) {
+			double temp = (double)(kazo.get(string)/n)*log2(n);
+			entropija = entropija - temp;
+		}
+		
+		return entropija;
+	}
+	
+	public double entropija(String category, String option) {
+		Table temp = this.subTable(category, option);
+		double entropija = temp.finalEntropy();
+		return entropija;
 	}
 	
 }
