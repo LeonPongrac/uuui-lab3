@@ -93,10 +93,11 @@ public class Table {
 			String opt = baza.get(i).get(categorys.size()-1);
 			kazo.replace(opt, kazo.get(opt)+1);
 		}
-		int n = baza.size()-1;
+		double n = baza.size()-1;
 		double entropija = 0;
 		for (String string : options) {
-			double temp = (double)(kazo.get(string)/n)*log2(n);
+			//System.out.println(kazo.get(string)/n + " " + log2(kazo.get(string)/n));
+			double temp = (double)((double)kazo.get(string)/n)*log2(kazo.get(string)/n);
 			entropija = entropija - temp;
 		}
 		

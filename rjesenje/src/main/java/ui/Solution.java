@@ -16,6 +16,8 @@ public class Solution {
 		System.out.println(test.getOptions("temperature").toString());
 		Table subTable = test.subTable("temperature", "comfortable");
 		subTable.print();
+		System.out.println(test.finalEntropy());
+		System.out.println(subTable.finalEntropy());
 	}
 
 }
