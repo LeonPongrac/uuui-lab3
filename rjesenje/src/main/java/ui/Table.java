@@ -76,11 +76,24 @@ public class Table {
 		return new Table(novaBaza);
 	}
 	
+	public double getN(String category, String option) {
+		double n = 0;
+		ArrayList<String> categorys = this.getCategorys();
+		int y = categorys.indexOf(category);
+		for (int i = 1; i < baza.size(); i++) {
+			String opt = baza.get(i).get(y);
+			if(option.equals(opt)) 
+				n++;
+		}
+		return n;
+	}
+	
 	public static double log2(double N)
     {
         double result = (Math.log(N) / Math.log(2));
         return result;
     }
+	
 	
 	public double finalEntropy() {
 		ArrayList<String> categorys = this.getCategorys();
@@ -104,10 +117,24 @@ public class Table {
 		return entropija;
 	}
 	
+	
 	public double entropija(String category, String option) {
 		Table temp = this.subTable(category, option);
 		double entropija = temp.finalEntropy();
 		return entropija;
 	}
 	
+	
+	public double infoGain(String category) {
+		double info = this.finalEntropy();
+		ArrayList<String> options = this.getOptions(category);
+		for (String string : options) {
+			double n = (this.getN(category, string)/((double)(baza.size()-1)));
+			double e = this.entropija(category, string);
+			double dobit = n*e;
+			//System.out.println(n + " " + e + " " + dobit);
+			info = info - dobit;
+		}
+		return info;
+	}
 }

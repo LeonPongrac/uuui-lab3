@@ -17,7 +17,10 @@ public class Solution {
 		Table subTable = test.subTable("temperature", "comfortable");
 		subTable.print();
 		System.out.println(test.finalEntropy());
-		System.out.println(subTable.finalEntropy());
+		System.out.println(test.entropija("temperature", "hot"));
+		System.out.println(test.entropija("temperature", "comfortable"));
+		System.out.println(test.entropija("temperature", "cold"));
+		System.out.println(test.infoGain("temperature"));
 	}
 
 }
