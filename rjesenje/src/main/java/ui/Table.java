@@ -93,8 +93,7 @@ public class Table {
         double result = (Math.log(N) / Math.log(2));
         return result;
     }
-	
-	
+		
 	public double finalEntropy() {
 		ArrayList<String> categorys = this.getCategorys();
 		ArrayList<String> options = this.getOptions(categorys.get(categorys.size()-1));
@@ -116,15 +115,13 @@ public class Table {
 		
 		return entropija;
 	}
-	
-	
+		
 	public double entropija(String category, String option) {
 		Table temp = this.subTable(category, option);
 		double entropija = temp.finalEntropy();
 		return entropija;
 	}
-	
-	
+		
 	public double infoGain(String category) {
 		double info = this.finalEntropy();
 		ArrayList<String> options = this.getOptions(category);
@@ -137,4 +134,29 @@ public class Table {
 		}
 		return info;
 	}
+	
+	public String getFinal() {
+		ArrayList<String> categorys = this.getCategorys();
+		ArrayList<String> options = this.getOptions(categorys.get(categorys.size()-1));
+		HashMap<String, Integer> kazo = new HashMap<>();
+		for (String string : options) {
+			kazo.put(string, 0);
+		}
+		for (int i = 1; i < baza.size(); i++) {
+			String opt = baza.get(i).get(categorys.size()-1);
+			kazo.replace(opt, kazo.get(opt)+1);
+		}
+		int i = 0;
+		String fin = null;
+		for (String string : options) {
+			if(i < kazo.get(string)) {
+				i = kazo.get(string);
+				fin = string;
+			}
+		}
+		
+		return fin;
+		
+	}
+	
 }
