@@ -68,7 +68,7 @@ public class Table {
 		novaBaza.add(red);
 		for (int i = 1; i < baza.size(); i++) {
 			String opt = baza.get(i).get(y);
-			if(opt.contains(option)) {
+			if(opt.equals(option)) {
 				red = baza.get(i);
 				novaBaza.add(red);
 			}
