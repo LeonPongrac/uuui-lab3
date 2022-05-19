@@ -15,7 +15,7 @@ public class DecisionTree {
 		this.ID3(table,categorys, tree);
 		this.tree = tree;
 		System.out.println("[BRANCHES]:");
-		this.tree.print(1);
+		this.tree.print();
 		
 	}
 	

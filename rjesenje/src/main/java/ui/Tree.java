@@ -60,51 +60,35 @@ public class Tree {
 		this.branches.add(tree);
 	}
 	
-	public void print(int i) {
+	public void print() {
 
-		for (Tree tree : branches) {
-			switch (type) {
-			case CATEGORY:
-				System.out.print(i+":"+name+"=");
-				break;
-			case OPTION:
-				System.out.print(name+" ");
-				break;
-			case END:
-				System.out.print(name);
-				System.out.println();
-				break;
-			default:
-				break;
-			}
-			tree.print(i+1);
-		}
+		StringBuilder string = new StringBuilder();
+		int i = 1;
+		Tree tree = this;
+		inerprint(string, i, tree);
 	}
 	
-	public void printl(int i) {
-		
+	private static void inerprint(StringBuilder string, int i, Tree tree) {
+		Type type = tree.type;
 		switch (type) {
 		case CATEGORY:
-			System.out.println(name);
+			string.append(i+":"+tree.name+"=");
+			i++;
 			break;
 		case OPTION:
-			System.out.println(name);
+			string.append(tree.name+" ");
 			break;
 		case END:
-			System.out.println(name);
-			System.out.println();
-			break;
-		default:
-			break;
+			string.append(tree.name);
+			System.out.println(string.toString());
+			return;
 		}
-		for (Tree tree : branches) {			
-			tree.printl(i+1);
+		ArrayList<Tree> branches = tree.getBranches();
+		for (Tree tree2 : branches) {
+			StringBuilder newString = new StringBuilder(string.toString());
+			inerprint(newString, i, tree2);
 		}
-
-		for (Tree tree : branches) {
-			
-			tree.printl(i+1);
-		}
+		return;
 	}
 	
 }
