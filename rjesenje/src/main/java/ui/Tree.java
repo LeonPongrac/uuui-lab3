@@ -90,6 +90,34 @@ public class Tree {
 		}
 		return;
 	}
+
+	public String predict(ArrayList<String> red, ArrayList<String> categorys) {
+		Tree tree = this;
+		String prediction = inerPredict(red, categorys, tree, "");
+		return prediction;
+	}
 	
+	private static String inerPredict(ArrayList<String> red, ArrayList<String> categorys,Tree tree, String previus) {
+		Type type = tree.type;
+		switch (type) {
+		case CATEGORY:
+			previus = tree.name;
+			int i = categorys.indexOf(tree.name);
+			String opt = red.get(i);
+			for (Tree branch : categorys) {
+				
+			}
+			return inerPredict(red, categorys, tree, previus);
+		case OPTION:
+			int i = categorys.indexOf(previus);
+			
+			break;
+		case END:
+			string.append(tree.name);
+			System.out.println(string.toString());
+			return;
+		}
+		return null;
+	}
 }
 

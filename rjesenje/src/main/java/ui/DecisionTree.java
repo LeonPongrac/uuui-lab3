@@ -64,4 +64,13 @@ public class DecisionTree {
 		}
 	}
 	
+	public void predict(Table table) {
+		System.out.print("[PREDICTIONS]");
+		ArrayList<String> cat = table.getCategorys();
+		for (int i = 1; i < table.getSize(); i++) {
+			ArrayList<String> red = table.getRed(i);
+			String prediction = tree.predict(red,cat);
+			System.out.print(" " + prediction);
+		}
+	}
 }

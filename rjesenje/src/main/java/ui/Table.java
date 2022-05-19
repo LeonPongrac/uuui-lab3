@@ -159,4 +159,11 @@ public class Table {
 		
 	}
 	
+	public int getSize() {
+		return baza.size();
+	}
+	
+	public ArrayList<String> getRed(int i){
+		return baza.get(i);
+	}
 }
