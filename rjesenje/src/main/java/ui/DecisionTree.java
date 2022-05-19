@@ -20,15 +20,15 @@ public class DecisionTree {
 	}
 	
 	void ID3(Table baza, ArrayList<String> categorys, Tree tree) {
-		baza.print();
-		System.out.println();
+		//baza.print();
+		//System.out.println();
 		double entropy = baza.finalEntropy();
 		if(entropy == 0) {
 			//System.out.println("Sve DA/NE");
 			tree.setType(Type.END);
 			tree.setName(baza.getFinal());
-			System.out.println("finish");
-			System.out.println();
+			/*System.out.println("finish");
+			System.out.println();*/
 			return;
 		}
 		if(categorys.size()==1) {
@@ -65,7 +65,7 @@ public class DecisionTree {
 	}
 	
 	public void predict(Table table) {
-		System.out.print("[PREDICTIONS]");
+		System.out.print("[PREDICTIONS]:");
 		ArrayList<String> cat = table.getCategorys();
 		for (int i = 1; i < table.getSize(); i++) {
 			ArrayList<String> red = table.getRed(i);

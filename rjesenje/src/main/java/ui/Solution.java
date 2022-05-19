@@ -11,8 +11,10 @@ public class Solution {
 		}*/
 		
 		Table table = new Table(args[0]);
+		Table testTable = new Table(args[1]);
 		DecisionTree test = new DecisionTree();
 		test.buildID3(table);
+		test.predict(testTable);
 	}
 
 }

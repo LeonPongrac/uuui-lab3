@@ -93,29 +93,27 @@ public class Tree {
 
 	public String predict(ArrayList<String> red, ArrayList<String> categorys) {
 		Tree tree = this;
-		String prediction = inerPredict(red, categorys, tree, "");
+		String prediction = inerPredict(red, categorys, tree);
 		return prediction;
 	}
 	
-	private static String inerPredict(ArrayList<String> red, ArrayList<String> categorys,Tree tree, String previus) {
+	private static String inerPredict(ArrayList<String> red, ArrayList<String> categorys,Tree tree) {
 		Type type = tree.type;
 		switch (type) {
 		case CATEGORY:
-			previus = tree.name;
 			int i = categorys.indexOf(tree.name);
 			String opt = red.get(i);
-			for (Tree branch : categorys) {
-				
+			for (Tree branch : tree.getBranches()) {
+				if(opt.equals(branch.getName())) {
+					return inerPredict(red, categorys, branch);
+				}
 			}
-			return inerPredict(red, categorys, tree, previus);
+			return inerPredict(red, categorys, tree);
 		case OPTION:
-			int i = categorys.indexOf(previus);
-			
-			break;
+			Tree nTree = tree.getBranches().get(0);
+			return inerPredict(red, categorys, nTree);
 		case END:
-			string.append(tree.name);
-			System.out.println(string.toString());
-			return;
+			return tree.getName();
 		}
 		return null;
 	}
