@@ -3,6 +3,7 @@ package ui;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -138,6 +139,7 @@ public class Table {
 	public String getFinal() {
 		ArrayList<String> categorys = this.getCategorys();
 		ArrayList<String> options = this.getOptions(categorys.get(categorys.size()-1));
+		Collections.sort(options);
 		HashMap<String, Integer> kazo = new HashMap<>();
 		for (String string : options) {
 			kazo.put(string, 0);
