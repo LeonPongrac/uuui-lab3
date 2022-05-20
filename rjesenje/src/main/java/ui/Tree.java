@@ -1,6 +1,7 @@
 package ui;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Tree {
 	Tree head;
@@ -108,7 +109,7 @@ public class Tree {
 					return inerPredict(red, categorys, branch);
 				}
 			}
-			return inerPredict(red, categorys, tree);
+			return tree.getName();
 		case OPTION:
 			Tree nTree = tree.getBranches().get(0);
 			return inerPredict(red, categorys, nTree);

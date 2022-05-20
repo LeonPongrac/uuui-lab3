@@ -88,9 +88,12 @@ public class DecisionTree {
 			String real = red.get(red.size()-1);
 			int predint = opt.indexOf(prediction);
 			int realint = opt.indexOf(real);
-			int tren = tablica.get(realint).get(predint);
-			tren++;
-			tablica.get(realint).set(predint, tren);
+			System.out.print(i + " " + prediction + " " + predint + " ");
+			if (predint != -1) {
+				int tren = tablica.get(realint).get(predint);
+				tren++;
+				tablica.get(realint).set(predint, tren);
+			}
 			//System.out.print(i + " " + prediction + " " + real + " ");
 			if(real.equals(prediction)) {
 				tocni++;
