@@ -163,6 +163,10 @@ public class Table {
 		return baza.size();
 	}
 	
+	public int getTrueSize() {
+		return baza.size()-1;
+	}
+	
 	public ArrayList<String> getRed(int i){
 		return baza.get(i);
 	}
