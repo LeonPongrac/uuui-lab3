@@ -2,7 +2,10 @@ package ui;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.TreeSet;
 
 public class DecisionTree {
 	Tree tree;
@@ -71,6 +74,7 @@ public class DecisionTree {
 		System.out.print("[PREDICTIONS]:");
 		ArrayList<String> cat = table.getCategorys();
 		ArrayList<String> opt = table.getOptions(cat.get(cat.size()-1));
+		Collections.sort(opt);
 		ArrayList<ArrayList<Integer>> tablica = new ArrayList<ArrayList<Integer>>(opt.size());
 		for (int i = 0; i < opt.size(); i++) {
 			ArrayList<Integer> red = new ArrayList<Integer>();
@@ -101,13 +105,14 @@ public class DecisionTree {
 		//table.print();
 		//System.out.println(tocni + " " + table.getSize());
 		System.out.print("[ACCURACY]: ");
+		DecimalFormat df = new DecimalFormat("#0.00000");
 		double acc = tocni/(double)table.getTrueSize();
-		System.out.println(round(acc,5));
+		System.out.println(df.format(acc));
 		System.out.println("[CONFUSION_MATRIX]: ");
-		for (int i = tablica.size()-1; i >= 0; i--) {
+		for (int i = 0; i < tablica.size(); i++) {
 			ArrayList<Integer> red = tablica.get(i);
 			boolean first = true;
-			for (int j = red.size()-1; j >= 0; j--) {
+			for (int j = 0; j < tablica.size(); j++) {
 				if(!first)
 					System.out.print(" ");
 				System.out.print(red.get(j));
@@ -116,14 +121,6 @@ public class DecisionTree {
 			System.out.println();
 		}
 		
-	}
-	
-	public static double round(double value, int places) {
-	    if (places < 0) throw new IllegalArgumentException();
-
-	    BigDecimal bd = BigDecimal.valueOf(value);
-	    bd = bd.setScale(places, RoundingMode.HALF_UP);
-	    return bd.doubleValue();
 	}
 	
 }
