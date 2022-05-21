@@ -109,7 +109,7 @@ public class Tree {
 					return inerPredict(red, categorys, branch);
 				}
 			}
-			return tree.getName();
+			return "NOMATCH";
 		case OPTION:
 			Tree nTree = tree.getBranches().get(0);
 			return inerPredict(red, categorys, nTree);

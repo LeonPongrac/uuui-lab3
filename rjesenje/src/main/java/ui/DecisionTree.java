@@ -1,8 +1,10 @@
 package ui;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Locale;
 
 public class DecisionTree {
 	Tree tree;
@@ -70,10 +72,10 @@ public class DecisionTree {
 	public void predict(Table table) {
 		double tocni = 0;
 		System.out.print("[PREDICTIONS]:");
-		ArrayList<String> cat = table.getCategorys();
-		ArrayList<String> opt = table.getOptions(cat.get(cat.size()-1));
+		ArrayList<String> cat = table.getCategorys(); // categorije
+		ArrayList<String> opt = table.getOptions(cat.get(cat.size()-1)); // Krajne opcije
 		Collections.sort(opt);
-		ArrayList<ArrayList<Integer>> tablica = new ArrayList<ArrayList<Integer>>(opt.size());
+		ArrayList<ArrayList<Integer>> tablica = new ArrayList<ArrayList<Integer>>(opt.size());// Izrada Confuson matrice
 		for (int i = 0; i < opt.size(); i++) {
 			ArrayList<Integer> red = new ArrayList<Integer>();
 			for (int j = 0; j < opt.size(); j++) {
@@ -82,13 +84,16 @@ public class DecisionTree {
 			tablica.add(red);
 		}
 		//System.out.println(tablica.size());
-		for (int i = 1; i < table.getSize(); i++) {
+		for (int i = 1; i < table.getSize(); i++) { // Pocetak predikcije po redovima
 			ArrayList<String> red = table.getRed(i);
 			String prediction = tree.predict(red,cat);
+			if (prediction.equals("NOMATCH")) {
+				prediction = opt.get(0);
+			}
 			String real = red.get(red.size()-1);
 			int predint = opt.indexOf(prediction);
 			int realint = opt.indexOf(real);
-			System.out.print(i + " " + prediction + " " + predint + " ");
+			//System.out.print(i + " " + prediction + " " + predint + " ");
 			if (predint != -1) {
 				int tren = tablica.get(realint).get(predint);
 				tren++;
@@ -106,7 +111,7 @@ public class DecisionTree {
 		//table.print();
 		//System.out.println(tocni + " " + table.getSize());
 		System.out.print("[ACCURACY]: ");
-		DecimalFormat df = new DecimalFormat("#0.00000");
+		DecimalFormat df = new DecimalFormat("#0.00000" , new DecimalFormatSymbols(Locale.US));
 		double acc = tocni/(double)table.getTrueSize();
 		System.out.println(df.format(acc));
 		System.out.println("[CONFUSION_MATRIX]: ");
